@@ -1,9 +1,12 @@
 __pycache__/
-venv/
+we-bot_venv/
 *.pyc
 *.png
 *.jpg
 *.zip
 *.wbproj
+
+*.h
+*.pyi
 !figs/*.jpg
 !figs/*.png

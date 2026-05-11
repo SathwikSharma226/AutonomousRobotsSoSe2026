@@ -9,8 +9,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
-  position 4.6766648699271585 0.917772506133738 22.2521548238383
+  orientation -0.3744760361496582 0.08783918810132878 0.9230666148135461 2.7151437689585594
+  position 9.693847167939225 -6.025248526132353 12.206058587100335
 }
 TexturedBackground {
   texture "empty_office"
@@ -24,7 +24,6 @@ Rosbot {
   translation -1.19026 2.53089 0.01
   rotation 0 0 -1 1.30899
   controller "main"
-  supervisor TRUE
 }
 Solid {
   translation -2.8661 2.87811 0.18
@@ -247,6 +246,26 @@ Solid {
   }
 }
 Solid {
+  translation 0.981266 0.420104 -0.04
+  rotation -7.28428e-08 -9.58996e-09 -1 -0.261795307179586
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.8 0.5 0.1
+      }
+    }
+  ]
+  name "Poison(1)"
+  boundingObject Box {
+    size 1.8 0.5 0.1
+  }
+}
+Solid {
   translation -1.2339 -1.28117 0.18
   rotation -7.28428e-08 -9.58996e-09 -1 -0.261795307179586
   children [
@@ -368,7 +387,7 @@ Solid {
 }
 Solid {
   translation 1.63497 -0.512315 0.18
-  rotation -7.28428e-08 -9.58996e-09 -1 -0.261795307179586
+  rotation 7.28427999999998e-08 9.589959999999974e-09 0.9999999999999973 0.26179530717958593
   children [
     Shape {
       appearance RoughPine {
@@ -407,7 +426,7 @@ Solid {
   }
 }
 Solid {
-  translation 1.80588 -0.2 0.25
+  translation 1.80588 -0.2 -0.6
   rotation 0 0 1 -0.523595307179586
   children [
     Shape {
@@ -427,7 +446,7 @@ Solid {
   }
 }
 Solid {
-  translation -2.73 3.2 0.25
+  translation -2.73 3.2 -0.59
   children [
     Shape {
       appearance PBRAppearance {

@@ -9,8 +9,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
-  position 6.121843787103956 -0.18600555121371126 25.982188435904394
+  orientation 0.3301537836268651 0.2216267438870733 -0.9175402255764478 2.03748389272695
+  position 2.3459503143751395 10.174070666785878 8.40647266381679
 }
 TexturedBackground {
   texture "empty_office"
@@ -21,14 +21,31 @@ TexturedBackground {
   ]
 }
 Rosbot {
-  translation -0.869427 0.587853 0.01
-  rotation 0 0 1 1.8326
+  hidden position_0_0 1393.1449133950005
+  hidden position_0_1 1715.028515795691
+  hidden position_0_2 1393.0611257896435
+  hidden position_0_3 1714.9893622897696
+  hidden linearVelocity_0 -1.000987588839814e-05 1.0282898674241112e-05 -1.2019952366506075e-05
+  hidden angularVelocity_0 -9.417524338019927e-05 -9.343862252766551e-05 1.1183677569287275e-06
+  hidden rotation_2 0 -1 0 1.72222479886774
+  hidden linearVelocity_2 1.7005298907301987e-05 -1.5778190029596544e-05 -7.709526773848942e-06
+  hidden angularVelocity_2 -9.823870744479077e-05 -8.60406585442775e-05 2.6370232239152136e-06
+  hidden rotation_3 0 1 0 6.0021122428434435
+  hidden linearVelocity_3 1.6587076341981472e-05 -1.6738500022618882e-05 -8.390897234780165e-06
+  hidden angularVelocity_3 -9.156431894706652e-05 -9.247921050594158e-05 2.853559269522828e-06
+  hidden rotation_4 0 -0.9999999999999999 0 1.8060124042247143
+  hidden linearVelocity_4 -2.430625980336717e-05 2.4986854192936833e-05 6.76739142871636e-06
+  hidden angularVelocity_4 -0.00010169144658414708 -8.961900022236034e-05 3.105272302858258e-06
+  hidden rotation_5 0 0.9999999999999999 0 5.962958736922065
+  hidden linearVelocity_5 -2.4947940640109542e-05 2.4151063031536465e-05 6.0879402184076056e-06
+  hidden angularVelocity_5 -9.502996061705464e-05 -9.607452970946629e-05 2.3971528145870284e-06
+  translation -0.43776991783167013 -1.0080907836184154 -0.0005610149215075355
+  rotation 7.47110657743846e-06 -2.8712806846668434e-06 -0.9999999999679692 -2.370767754385524
   controller "main"
-  supervisor TRUE
 }
 Solid {
-  translation 1.94873 -1.19117 0.18
-  rotation 0 0 1 2.618
+  translation 1.89373 -1.09591 0.18
+  rotation 0.3779608383138684 0.6546547199482632 0.6546547199482632 2.41887
   children [
     Shape {
       appearance RoughPine {
@@ -37,18 +54,18 @@ Solid {
         }
       }
       geometry Box {
-        size 0.5 0.05 0.5
+        size 0.5 0.05 0.2
       }
     }
   ]
   name "WallShort(17)"
   boundingObject Box {
-    size 0.5 0.05 0.5
+    size 0.5 0.05 0.2
   }
 }
 Solid {
-  translation 2.18255 -1.32617 0.18
-  rotation 0 0 1 2.618
+  translation 2.20755 -1.28287 0.1
+  rotation 0.1861549560634332 0.694746836024829 0.694746836024829 2.7735
   children [
     Shape {
       appearance RoughPine {
@@ -57,17 +74,17 @@ Solid {
         }
       }
       geometry Box {
-        size 0.5 0.05 0.5
+        size 0.5 0.05 0.3
       }
     }
   ]
   name "WallShort(14)"
   boundingObject Box {
-    size 0.5 0.05 0.5
+    size 0.5 0.05 0.3
   }
 }
 Solid {
-  translation 2.73069 -0.70385 0.18
+  translation 2.73069 -0.70385 0.45
   rotation 0 0 1 2.618
   children [
     Shape {
@@ -367,7 +384,7 @@ Solid {
   }
 }
 Solid {
-  translation 1.12608 -0.483222 0.18
+  translation 1.12608 -0.483222 0.3
   rotation 0 0 1 2.3562
   children [
     Shape {
@@ -507,8 +524,8 @@ Solid {
   }
 }
 Solid {
-  translation 0.95003 -1.28 0.18
-  rotation 0 0 1 1.5708
+  translation 0.95003 -1.28 -0.01
+  rotation -0.5773509358554485 0.5773489358556708 0.5773509358554485 2.0944
   children [
     Shape {
       appearance RoughPine {
@@ -547,7 +564,7 @@ Solid {
   }
 }
 Solid {
-  translation 1.73003 -0.64 0.18
+  translation 1.73003 -0.64 0.5
   rotation 0 0 1 1.5708
   children [
     Shape {
@@ -567,7 +584,7 @@ Solid {
   }
 }
 Solid {
-  translation 1.73003 -0.5 0.18
+  translation 1.73003 -0.5 0.5
   rotation 0 0 1 1.5708
   children [
     Shape {
@@ -667,46 +684,6 @@ Solid {
   }
 }
 Solid {
-  translation 2.74592 2.18905 0.18
-  rotation 0 0 1 -1.047195307179586
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.5 0.02 0.5
-      }
-    }
-  ]
-  name "WallRed(1)"
-  boundingObject Box {
-    size 0.5 0.02 0.5
-  }
-}
-Solid {
-  translation 3.09998 1.92166 0.18
-  rotation 0 0 1 -0.261795307179586
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0 0
-        roughness 1
-        metalness 0
-      }
-      geometry Box {
-        size 0.5 0.02 0.5
-      }
-    }
-  ]
-  name "WallRed(2)"
-  boundingObject Box {
-    size 0.5 0.02 0.5
-  }
-}
-Solid {
   translation 2.36998 -1.72834 -0.049
   rotation 0 0 1 4.07987e-06
   children [
@@ -785,7 +762,7 @@ Solid {
   }
 }
 Solid {
-  translation 2.52 -2.55 0.18
+  translation 2.3 -2.55 0.18
   children [
     Shape {
       appearance RoughPine {
@@ -924,8 +901,8 @@ Solid {
   }
 }
 Solid {
-  translation 1.27412 -1.72588 0.18
-  rotation 0 0 1 1.0472
+  translation 2.61297 1.72159 0.18
+  rotation 0 0 1 2.618
   children [
     Shape {
       appearance RoughPine {
@@ -938,9 +915,29 @@ Solid {
       }
     }
   ]
-  name "WallMedium(11)"
+  name "WallMedium(37)"
   boundingObject Box {
     size 1 0.05 0.5
+  }
+}
+Solid {
+  translation 1.1885 -1.73418 0.2
+  rotation 0.7745957748881706 0.44721387003139484 -0.44721487003110416 -1.8234853071795865
+  children [
+    Shape {
+      appearance RoughPine {
+        textureTransform TextureTransform {
+          scale 2 1
+        }
+      }
+      geometry Box {
+        size 1 0.05 0.3
+      }
+    }
+  ]
+  name "WallMedium(11)"
+  boundingObject Box {
+    size 1 0.05 0.3
   }
 }
 Solid {
@@ -1364,7 +1361,7 @@ Solid {
   }
 }
 Solid {
-  translation 0.39 -2.38 0.18
+  translation 0.39 -2.72 0.18
   rotation -0.01791370026920986 -0.004799970072134693 0.9998280150255702 -5.307179586466759e-06
   children [
     Shape {
@@ -1464,7 +1461,7 @@ Solid {
   }
 }
 Solid {
-  translation 1.49 -1.77 0.25
+  translation 1.49 -1.77 0.2
   children [
     Shape {
       appearance PBRAppearance {
@@ -1473,17 +1470,19 @@ Solid {
         metalness 0
       }
       geometry Cylinder {
+        height 0.4
         radius 0.1
       }
     }
   ]
   name "BlueCylinder"
   boundingObject Cylinder {
+    height 0.4
     radius 0.1
   }
 }
 Solid {
-  translation -0.93 0.99 0.25
+  translation -0.93 0.99 0.2
   children [
     Shape {
       appearance PBRAppearance {
@@ -1492,12 +1491,14 @@ Solid {
         metalness 0
       }
       geometry Cylinder {
+        height 0.4
         radius 0.1
       }
     }
   ]
   name "YellowCylinder"
   boundingObject Cylinder {
+    height 0.4
     radius 0.1
   }
 }

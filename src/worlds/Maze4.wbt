@@ -9,8 +9,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.5773502691896258 -0.5773502691896258 -0.5773502691896258 4.188785307179587
-  position 2.392205571906522 1.0923456827713713 19.239002124148026
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -1.4606243274578785 0.9431269579397576 16.789650358867046
 }
 TexturedBackground {
   texture "empty_office"
@@ -24,7 +24,6 @@ Rosbot {
   translation -2.22817 2.79462 0.01
   rotation 0 0 1 2.618
   controller "main"
-  supervisor TRUE
 }
 Solid {
   translation -2.76758 3.40977 0.18
@@ -207,8 +206,8 @@ Solid {
   }
 }
 Solid {
-  translation -0.511208 -0.0330249 0.18
-  rotation 0 0 1 0.261802
+  translation -0.570732 0.189135 0.14
+  rotation 0.9831051519757795 0.12943002000826476 -0.12943002000826476 -1.5878353071795859
   children [
     Shape {
       appearance RoughPine {
@@ -222,6 +221,26 @@ Solid {
     }
   ]
   name "WallShort(16)"
+  boundingObject Box {
+    size 0.5 0.05 0.5
+  }
+}
+Solid {
+  translation -0.91019 0.854961 0.18
+  rotation 0.7745957748881706 0.44721387003139484 -0.44721487003110416 -1.8234853071795865
+  children [
+    Shape {
+      appearance RoughPine {
+        textureTransform TextureTransform {
+          scale 2 1
+        }
+      }
+      geometry Box {
+        size 0.5 0.05 0.5
+      }
+    }
+  ]
+  name "WallShort(18)"
   boundingObject Box {
     size 0.5 0.05 0.5
   }
@@ -248,7 +267,7 @@ Solid {
 }
 Solid {
   translation -2.53272 -0.988795 0.18
-  rotation 0 0 1 0.261802
+  rotation 0 0 1 0.26180199999999926
   children [
     Shape {
       appearance RoughPine {
@@ -267,8 +286,8 @@ Solid {
   }
 }
 Solid {
-  translation -1.08384 -0.600564 0.18
-  rotation 0 0 1 0.261802
+  translation -1.02689 -0.813069 0.0400009
+  rotation 0.9831054064615734 0.1294290535120002 0.1294290535120002 1.58783
   children [
     Shape {
       appearance RoughPine {
@@ -587,8 +606,8 @@ Solid {
   }
 }
 Solid {
-  translation -3.59173 -1.83649 0.18
-  rotation 7.28443e-08 9.59008e-09 1 0.26179
+  translation -3.59173 -1.83649 0.11
+  rotation 0.9831070003406467 0.1294230000448451 0.1294230000448451 1.58783
   children [
     Shape {
       appearance RoughPine {
@@ -787,7 +806,7 @@ Solid {
   }
 }
 Solid {
-  translation 0.44 0.04 0.25
+  translation 0.44 0.04 -0.6
   children [
     Shape {
       appearance PBRAppearance {
@@ -806,7 +825,7 @@ Solid {
   }
 }
 Solid {
-  translation -2.73 3.13 0.25
+  translation -2.73 3.13 -0.61
   children [
     Shape {
       appearance PBRAppearance {

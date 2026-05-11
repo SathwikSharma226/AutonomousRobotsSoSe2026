@@ -1,4 +1,4 @@
-from controller import Supervisor
+from controller import Robot
 import numpy as np
 from setup import setup_robot
 import cv2
@@ -13,11 +13,21 @@ from CONSTANTS import *
 from map import GridMap
 
 
-class MyRobot(Supervisor):
+class MyRobot(Robot):
     def __init__(self):
         super().__init__()
         self.motors, self.wheel_sensors, self.imu, self.camera_rgb, self.camera_depth, self.lidar, self.distance_sensors = setup_robot(self)
         self.time_step = TIME_STEP
+        # --- Odometry / pose state (replaces Supervisor ground-truth) ---
+        # Pose is tracked in a robot-local world frame whose origin is the
+        # robot's start position. Heading uses the compass (drift-free,
+        # absolute world bearing). Position is integrated from wheel encoders.
+        self._odom_initialized = False
+        self._odom_x = 0.0
+        self._odom_y = 0.0
+        self._prev_left_pos = 0.0
+        self._prev_right_pos = 0.0
+        self._heading_rad = 0.0
         # Initialize GridMap instance
         self.map_object = GridMap(robot=self)
         # Backwards-compatibility: expose `grid_map` directly on robot for older helpers
@@ -358,12 +368,54 @@ class MyRobot(Supervisor):
         right_speed = v_right / self.wheel_radius
         return left_speed, right_speed
 
+    def step(self, ms=None):
+        """Override Robot.step to update odometry every simulation step."""
+        if ms is None:
+            ms = self.time_step
+        result = super().step(int(ms))
+        self._update_odometry()
+        return result
+
+    def _update_odometry(self):
+        """Integrate wheel-encoder deltas and refresh heading from compass.
+
+        Replaces Supervisor.getSelf().getPosition()/getOrientation().
+        Pose is expressed in a frame whose origin is the robot's start
+        position; heading is the absolute world bearing measured by the
+        compass, so it does not drift.
+        """
+        try:
+            l = (self.wheel_sensors['fl'].getValue() + self.wheel_sensors['rl'].getValue()) / 2.0
+            r = (self.wheel_sensors['fr'].getValue() + self.wheel_sensors['rr'].getValue()) / 2.0
+        except Exception:
+            return
+        if np.isnan(l) or np.isnan(r):
+            return
+        # Heading from compass: north (world +X) expressed in robot frame.
+        # If R is the yaw rotation of the robot in the world, compass = R^T*[1,0,0]
+        # which yields (cos(theta), -sin(theta), 0); hence theta = -atan2(c[1], c[0]).
+        try:
+            c = self.imu['compass'].getValues()
+            if not (np.isnan(c[0]) or np.isnan(c[1])):
+                self._heading_rad = -np.arctan2(c[1], c[0])
+        except Exception:
+            pass
+        if not self._odom_initialized:
+            self._prev_left_pos = l
+            self._prev_right_pos = r
+            self._odom_initialized = True
+            return
+        dl = (l - self._prev_left_pos) * self.wheel_radius
+        dr = (r - self._prev_right_pos) * self.wheel_radius
+        self._prev_left_pos = l
+        self._prev_right_pos = r
+        d = (dl + dr) / 2.0
+        self._odom_x += d * np.cos(self._heading_rad)
+        self._odom_y += d * np.sin(self._heading_rad)
+
     def get_heading(self, type='deg'):
-        # Calculate the angle from robot direction to the x-axis
-        orientation = self.getSelf().getOrientation()
-        dir_x = orientation[0]
-        dir_y = orientation[3]
-        angle_rad = np.arctan2(dir_y, dir_x)
+        # Heading derived from compass (see _update_odometry).
+        angle_rad = self._heading_rad
         if type == 'rad':
             return angle_rad
         elif type == 'deg':
@@ -396,7 +448,8 @@ class MyRobot(Supervisor):
         return [sensor.getValue() for sensor in self.distance_sensors]
 
     def get_position(self):
-        return np.array(self.getSelf().getPosition()[:2])
+        # Position from wheel-encoder odometry (replaces Supervisor.getPosition).
+        return np.array([self._odom_x, self._odom_y])
 
     def get_map_position(self):
         x, y = self.get_position()
@@ -2789,14 +2842,20 @@ class MyRobot(Supervisor):
         """
         Returns True if robot pitch is small enough to safely use LiDAR for mapping.
         max_tan_pitch ≈ tan(max_allowed_pitch_angle)
+
+        Uses the IMU accelerometer (gravity vector in robot frame) instead of
+        the Supervisor orientation matrix. When stationary/level the
+        accelerometer reads (g*sin(pitch), 0, -g*cos(pitch)).
         """
         try:
-            orientation = self.getSelf().getOrientation()
-
-            # Pitch (rotation around Y axis)
-            pitch = np.arctan2(-orientation[6], orientation[8])
-
-            # Use tan(pitch) as geometric validity criterion
+            a = self.imu['accelerometer'].getValues()
+            ax, _, az = a[0], a[1], a[2]
+            if np.isnan(ax) or np.isnan(az):
+                return False
+            # Avoid degenerate divide; az is ~ -g when level.
+            if abs(az) < 1e-6:
+                return False
+            pitch = np.arctan2(ax, -az)
             return abs(np.tan(pitch)) < max_tan_pitch
 
         except Exception:
